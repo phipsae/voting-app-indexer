@@ -1,6 +1,7 @@
-import { createConfig } from "ponder";
+import { createConfig, factory } from "ponder";
+import { parseAbiItem } from "viem";
 
-import { ExampleContractAbi } from "./abis/ExampleContractAbi";
+import { ZkVotingAbi, ZkVotingFactoryAbi } from "./abis/ExampleContractAbi";
 
 export default createConfig({
   chains: {
@@ -8,13 +9,38 @@ export default createConfig({
       id: 1,
       rpc: process.env.PONDER_RPC_URL_1!,
     },
+    baseSepolia: {
+      id: 84532,
+      rpc: process.env.PONDER_RPC_BASE_SEPOLIA!,
+    },
   },
   contracts: {
-    ExampleContract: {
-      chain: "mainnet",
-      abi: ExampleContractAbi,
-      address: "0x0000000000000000000000000000000000000000",
-      startBlock: 1234567,
+    // ZkVoting: {
+    //   chain: "baseSepolia",
+    //   abi: ZkVotingAbi,
+    //   address: "0x584d85D63Bc918721198078538DB3648d2f62275",
+    //   startBlock: 29619310,
+    // },
+    ZkVotingFactory: {
+      chain: "baseSepolia",
+      abi: ZkVotingFactoryAbi,
+      address: "0x1BBc2abC85646A2D08FA1926dcDD75257A6e47a7",
+      startBlock: 29887242,
+    },
+    ZkVoting: {
+      chain: "baseSepolia",
+      abi: ZkVotingAbi,
+      address: factory({
+        address: "0x1BBc2abC85646A2D08FA1926dcDD75257A6e47a7",
+        event: parseAbiItem(
+          "event VotingCreated(address indexed creator, address indexed voting, string question)"
+        ),
+        parameter: "voting",
+        // (Optional) scan the factory’s whole history for children:
+        startBlock: 29887242,
+      }),
+
+      startBlock: 29887242,
     },
   },
 });
