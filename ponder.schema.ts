@@ -54,3 +54,22 @@ export const tally = onchainTable("tally", (t) => ({
   totalNo: t.text().notNull(),
   lastUpdatedBlock: t.integer().notNull(),
 }));
+
+export const voters = onchainTable(
+  "voters",
+  (t) => ({
+    id: t.text().primaryKey(),
+    votingAddress: t.text().notNull(),
+    voter: t.text().notNull(),
+    blockNumber: t.integer().notNull(),
+    txHash: t.text().notNull(),
+  }),
+  (t) => ({
+    byVoting: index("voters_voting_idx").on(t.votingAddress),
+    byVoter: index("voters_voter_idx").on(t.voter),
+    byVotingVoter: index("voters_voting_voter_idx").on(
+      t.votingAddress,
+      t.voter
+    ),
+  })
+);

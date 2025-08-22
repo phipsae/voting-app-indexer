@@ -1,5 +1,5 @@
 import { ponder } from "ponder:registry";
-import { leaves, votes, tally, votings } from "ponder:schema";
+import { leaves, votes, tally, votings, voters } from "ponder:schema";
 
 const idFor = (event: any) => `${event.block.hash}-${event.log.logIndex}`;
 
@@ -67,4 +67,19 @@ ponder.on("ZkVoting:VoteCast", async ({ event, context }) => {
       totalNo: totalNo.toString(),
       lastUpdatedBlock: Number(event.block.number),
     });
+});
+
+ponder.on("ZkVoting:VoterAdded", async ({ event, context }) => {
+  const { db } = context;
+  const { voter } = event.args as { voter: `0x${string}` };
+
+  const votingAddress = event.log.address.toLowerCase();
+
+  await db.insert(voters).values({
+    id: idFor(event),
+    votingAddress,
+    voter: voter.toLowerCase(),
+    blockNumber: Number(event.block.number),
+    txHash: event.transaction.hash,
+  });
 });

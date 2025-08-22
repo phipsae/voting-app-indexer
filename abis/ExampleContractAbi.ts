@@ -211,6 +211,19 @@ export const ZkVotingAbi = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "voter",
+        type: "address",
+      },
+    ],
+    name: "VoterAdded",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "getDepth",
     outputs: [

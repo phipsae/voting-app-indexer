@@ -24,23 +24,23 @@ export default createConfig({
     ZkVotingFactory: {
       chain: "baseSepolia",
       abi: ZkVotingFactoryAbi,
-      address: "0xaa46a6f539E26F64dd189eeeee95dCfc36198AeA",
-      startBlock: 29887242,
+      address: "0x20170De392C8E8b101C4284E4798E5245D5Bc66f",
+      startBlock: 30056488,
     },
     ZkVoting: {
       chain: "baseSepolia",
       abi: ZkVotingAbi,
       address: factory({
-        address: "0xaa46a6f539E26F64dd189eeeee95dCfc36198AeA",
+        address: "0x20170De392C8E8b101C4284E4798E5245D5Bc66f",
         event: parseAbiItem(
           "event VotingCreated(address indexed creator, address indexed voting, string question)"
         ),
         parameter: "voting",
         // (Optional) scan the factory’s whole history for children:
-        startBlock: 29887242,
+        startBlock: 30056488,
       }),
 
-      startBlock: 29887242,
+      startBlock: 30056488,
     },
   },
 });
