@@ -24,14 +24,14 @@ export default createConfig({
     ZkVotingFactory: {
       chain: "baseSepolia",
       abi: ZkVotingFactoryAbi,
-      address: "0x1BBc2abC85646A2D08FA1926dcDD75257A6e47a7",
+      address: "0xaa46a6f539E26F64dd189eeeee95dCfc36198AeA",
       startBlock: 29887242,
     },
     ZkVoting: {
       chain: "baseSepolia",
       abi: ZkVotingAbi,
       address: factory({
-        address: "0x1BBc2abC85646A2D08FA1926dcDD75257A6e47a7",
+        address: "0xaa46a6f539E26F64dd189eeeee95dCfc36198AeA",
         event: parseAbiItem(
           "event VotingCreated(address indexed creator, address indexed voting, string question)"
         ),
