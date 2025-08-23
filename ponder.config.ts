@@ -13,6 +13,10 @@ export default createConfig({
       id: 84532,
       rpc: process.env.PONDER_RPC_BASE_SEPOLIA!,
     },
+    base: {
+      id: 8453,
+      rpc: process.env.PONDER_RPC_BASE!,
+    },
   },
   contracts: {
     // ZkVoting: {
@@ -22,25 +26,25 @@ export default createConfig({
     //   startBlock: 29619310,
     // },
     ZkVotingFactory: {
-      chain: "baseSepolia",
+      chain: "base",
       abi: ZkVotingFactoryAbi,
-      address: "0x78d26E650cD682AF83D102dC92EFA431ac2044d3",
-      startBlock: 30058093,
+      address: "0x8b698d8f63f078369C067d58A4CC4B529F219CF7",
+      startBlock: 34578848,
     },
     ZkVoting: {
-      chain: "baseSepolia",
+      chain: "base",
       abi: ZkVotingAbi,
       address: factory({
-        address: "0x78d26E650cD682AF83D102dC92EFA431ac2044d3",
+        address: "0x8b698d8f63f078369C067d58A4CC4B529F219CF7",
         event: parseAbiItem(
           "event VotingCreated(address indexed creator, address indexed voting, string question)"
         ),
         parameter: "voting",
         // (Optional) scan the factory’s whole history for children:
-        startBlock: 30058093,
+        startBlock: 34578848,
       }),
 
-      startBlock: 30058093,
+      startBlock: 34578848,
     },
   },
 });
