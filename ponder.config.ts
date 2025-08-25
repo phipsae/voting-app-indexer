@@ -3,6 +3,9 @@ import { parseAbiItem } from "viem";
 
 import { ZkVotingAbi, ZkVotingFactoryAbi } from "./abis/ExampleContractAbi";
 
+const ZK_VOTING_FACTORY_ADDRESS = "0x2927113632B3aA0A44d705873CEFe02F6BC6034f";
+const START_BLOCK = 34664772;
+
 export default createConfig({
   chains: {
     mainnet: {
@@ -28,23 +31,23 @@ export default createConfig({
     ZkVotingFactory: {
       chain: "base",
       abi: ZkVotingFactoryAbi,
-      address: "0x6Cc633870F19b8421D3434994527ee8bd932311e",
-      startBlock: 34664119,
+      address: ZK_VOTING_FACTORY_ADDRESS,
+      startBlock: START_BLOCK,
     },
     ZkVoting: {
       chain: "base",
       abi: ZkVotingAbi,
       address: factory({
-        address: "0x6Cc633870F19b8421D3434994527ee8bd932311e",
+        address: ZK_VOTING_FACTORY_ADDRESS,
         event: parseAbiItem(
           "event VotingCreated(address indexed creator, address indexed voting, string question)"
         ),
         parameter: "voting",
         // (Optional) scan the factory’s whole history for children:
-        startBlock: 34664119,
+        startBlock: START_BLOCK,
       }),
 
-      startBlock: 34664119,
+      startBlock: START_BLOCK,
     },
   },
 });
