@@ -3,8 +3,8 @@ import { parseAbiItem } from "viem";
 
 import { ZkVotingAbi, ZkVotingFactoryAbi } from "./abis/ExampleContractAbi";
 
-const ZK_VOTING_FACTORY_ADDRESS = "0x2927113632B3aA0A44d705873CEFe02F6BC6034f";
-const START_BLOCK = 34664772;
+const ZK_VOTING_FACTORY_ADDRESS = "0x80D0c650C28C5314933901e8Ef34D7610bd9ed9E";
+const START_BLOCK = 30494415;
 
 export default createConfig({
   chains: {
@@ -29,13 +29,13 @@ export default createConfig({
     //   startBlock: 29619310,
     // },
     ZkVotingFactory: {
-      chain: "base",
+      chain: "baseSepolia",
       abi: ZkVotingFactoryAbi,
       address: ZK_VOTING_FACTORY_ADDRESS,
       startBlock: START_BLOCK,
     },
     ZkVoting: {
-      chain: "base",
+      chain: "baseSepolia",
       abi: ZkVotingAbi,
       address: factory({
         address: ZK_VOTING_FACTORY_ADDRESS,
