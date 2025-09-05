@@ -1,5 +1,16 @@
 import { ponder } from "ponder:registry";
-import { leaves, votes, tally, votings, voters } from "ponder:schema";
+import {
+  mainnetVotings,
+  mainnetLeaves,
+  mainnetVotes,
+  mainnetTally,
+  mainnetVoters,
+  baseVotings,
+  baseLeaves,
+  baseVotes,
+  baseTally,
+  baseVoters,
+} from "ponder:schema";
 
 const idFor = (event: any) => `${event.block.hash}-${event.log.logIndex}`;
 
@@ -8,8 +19,9 @@ const idFor = (event: any) => `${event.block.hash}-${event.log.logIndex}`;
 ///////////////////
 
 ponder.on("ZkVotingFactoryBase:VotingCreated", async ({ event, context }) => {
-  await context.db.insert(votings).values({
-    address: event.args.voting.toLowerCase(), // (optional) normalize
+  const address = event.args.voting.toLowerCase();
+  await context.db.insert(baseVotings).values({
+    address,
     creator: event.args.creator.toLowerCase(),
     question: event.args.question,
     createdAtBlock: Number(event.block.number),
@@ -23,11 +35,11 @@ ponder.on("ZkVotingBase:NewLeaf", async ({ event, context }) => {
 
   const votingAddress = event.log.address.toLowerCase(); // emitter
 
-  await db.insert(leaves).values({
+  await db.insert(baseLeaves).values({
     id: `${event.block.hash}-${event.log.logIndex}`,
-    votingAddress, // <-- new column
+    votingAddress,
     index: index.toString(),
-    indexNum: Number(index), // or BigInt column if you changed schema
+    indexNum: Number(index),
     value: value.toString(),
     blockNumber: Number(event.block.number),
     txHash: event.transaction.hash,
@@ -46,7 +58,7 @@ ponder.on("ZkVotingBase:VoteCast", async ({ event, context }) => {
       totalNo: bigint;
     };
 
-  await db.insert(votes).values({
+  await db.insert(baseVotes).values({
     id: idFor(event),
     nullifierHash,
     voter,
@@ -59,7 +71,7 @@ ponder.on("ZkVotingBase:VoteCast", async ({ event, context }) => {
   });
 
   await db
-    .insert(tally)
+    .insert(baseTally)
     .values({
       id: 0,
       totalYes: totalYes.toString(),
@@ -79,7 +91,7 @@ ponder.on("ZkVotingBase:VoterAdded", async ({ event, context }) => {
 
   const votingAddress = event.log.address.toLowerCase();
 
-  await db.insert(voters).values({
+  await db.insert(baseVoters).values({
     id: idFor(event),
     votingAddress,
     voter: voter.toLowerCase(),
@@ -95,8 +107,9 @@ ponder.on("ZkVotingBase:VoterAdded", async ({ event, context }) => {
 ponder.on(
   "ZkVotingFactoryMainnet:VotingCreated",
   async ({ event, context }) => {
-    await context.db.insert(votings).values({
-      address: event.args.voting.toLowerCase(), // (optional) normalize
+    const address = event.args.voting.toLowerCase();
+    await context.db.insert(mainnetVotings).values({
+      address,
       creator: event.args.creator.toLowerCase(),
       question: event.args.question,
       createdAtBlock: Number(event.block.number),
@@ -111,11 +124,11 @@ ponder.on("ZkVotingMainnet:NewLeaf", async ({ event, context }) => {
 
   const votingAddress = event.log.address.toLowerCase(); // emitter
 
-  await db.insert(leaves).values({
+  await db.insert(mainnetLeaves).values({
     id: `${event.block.hash}-${event.log.logIndex}`,
-    votingAddress, // <-- new column
+    votingAddress,
     index: index.toString(),
-    indexNum: Number(index), // or BigInt column if you changed schema
+    indexNum: Number(index),
     value: value.toString(),
     blockNumber: Number(event.block.number),
     txHash: event.transaction.hash,
@@ -134,7 +147,7 @@ ponder.on("ZkVotingMainnet:VoteCast", async ({ event, context }) => {
       totalNo: bigint;
     };
 
-  await db.insert(votes).values({
+  await db.insert(mainnetVotes).values({
     id: idFor(event),
     nullifierHash,
     voter,
@@ -147,7 +160,7 @@ ponder.on("ZkVotingMainnet:VoteCast", async ({ event, context }) => {
   });
 
   await db
-    .insert(tally)
+    .insert(mainnetTally)
     .values({
       id: 0,
       totalYes: totalYes.toString(),
@@ -167,7 +180,7 @@ ponder.on("ZkVotingMainnet:VoterAdded", async ({ event, context }) => {
 
   const votingAddress = event.log.address.toLowerCase();
 
-  await db.insert(voters).values({
+  await db.insert(mainnetVoters).values({
     id: idFor(event),
     votingAddress,
     voter: voter.toLowerCase(),
