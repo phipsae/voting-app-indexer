@@ -79,27 +79,27 @@ export default createConfig({
     ///////////////
     /// Mainnet ///
     ///////////////
-    ZkVotingFactoryMainnet: {
-      chain: "mainnet",
-      abi: ZkVotingFactoryAbi,
-      address: ZK_VOTING_FACTORY_ADDRESS_MAINNET,
-      startBlock: START_BLOCK_MAINNET,
-    },
-    ZkVotingMainnet: {
-      chain: "mainnet",
-      abi: ZkVotingAbi,
-      address: factory({
-        address: ZK_VOTING_FACTORY_ADDRESS_MAINNET,
-        event: parseAbiItem(
-          "event VotingCreated(address indexed creator, address indexed voting, string question)"
-        ),
-        parameter: "voting",
-        // (Optional) scan the factory’s whole history for children:
-        startBlock: START_BLOCK_MAINNET,
-      }),
+    // ZkVotingFactoryMainnet: {
+    //   chain: "mainnet",
+    //   abi: ZkVotingFactoryAbi,
+    //   address: ZK_VOTING_FACTORY_ADDRESS_MAINNET,
+    //   startBlock: START_BLOCK_MAINNET,
+    // },
+    // ZkVotingMainnet: {
+    //   chain: "mainnet",
+    //   abi: ZkVotingAbi,
+    //   address: factory({
+    //     address: ZK_VOTING_FACTORY_ADDRESS_MAINNET,
+    //     event: parseAbiItem(
+    //       "event VotingCreated(address indexed creator, address indexed voting, string question)"
+    //     ),
+    //     parameter: "voting",
+    //     // (Optional) scan the factory’s whole history for children:
+    //     startBlock: START_BLOCK_MAINNET,
+    //   }),
 
-      startBlock: START_BLOCK_MAINNET,
-    },
+    //   startBlock: START_BLOCK_MAINNET,
+    // },
     ///////////////
     /// Base ///
     ///////////////
