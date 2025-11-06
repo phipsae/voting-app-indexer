@@ -4,8 +4,8 @@ import { parseAbiItem } from "viem";
 import { ZkVotingAbi, ZkVotingFactoryAbi } from "./abis/ExampleContractAbi";
 
 const ZK_VOTING_FACTORY_ADDRESS_BASE =
-  "0x678043eD0f934dC07F2ed5BB7B29F49bda091f0a";
-const START_BLOCK_BASE = 37529913;
+  "0x833F0e4b015fd9614f4fC30067D3396afe692C05";
+const START_BLOCK_BASE = 37829798;
 
 export default createConfig({
   chains: {
