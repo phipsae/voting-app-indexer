@@ -5,7 +5,7 @@ import { ZkVotingAbi, ZkVotingFactoryAbi } from "./abis/ExampleContractAbi";
 
 const ZK_VOTING_FACTORY_ADDRESS_BASE =
   "0x833F0e4b015fd9614f4fC30067D3396afe692C05";
-const START_BLOCK_BASE = 37829798;
+const START_BLOCK_BASE = 38380253;
 
 export default createConfig({
   chains: {
